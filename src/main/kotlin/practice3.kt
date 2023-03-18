@@ -1,10 +1,11 @@
 class CoffeeMachine(
-    var water: Int = 400,
-    var milk: Int = 540,
-    var coffeeBeans: Int = 120,
-    var disposableCups: Int = 9,
-    var money: Int = 550){
-    fun makingCoffee(waterNeed: Int, milkNeed: Int, beansNeed: Int, moneyNeed: Int){
+    private var water: Int = 400,
+    private var milk: Int = 540,
+    private var coffeeBeans: Int = 120,
+    private var disposableCups: Int = 9,
+    private var money: Int = 550){
+
+    private fun makingCoffee(waterNeed: Int, milkNeed: Int, beansNeed: Int, moneyNeed: Int){
         if (water < waterNeed){
             println("Sorry, not enough water!")
         }
@@ -26,6 +27,7 @@ class CoffeeMachine(
             money += moneyNeed
         }
     }
+
     fun buy(choice: String){
         when(choice){
             "1" -> makingCoffee(250, 0,16, 4)
@@ -34,16 +36,19 @@ class CoffeeMachine(
             "back" -> return
         }
     }
+
     fun fill(waterAdd: Int, milkAdd: Int, beansAdd: Int,cupsAdd: Int){
         water += waterAdd
         milk += milkAdd
         coffeeBeans += beansAdd
         disposableCups += cupsAdd
     }
+
     fun take(){
         println("I gave you $money")
         money = 0
     }
+
     fun remaining(){
         println("The coffee machine has:")
         println("$water of water,")
@@ -53,6 +58,7 @@ class CoffeeMachine(
         println("$money of money.")
     }
 }
+
 fun main(){
     val machine = CoffeeMachine()
     while (true){
@@ -64,15 +70,19 @@ fun main(){
                 machine.buy(choice)
             }
             "fill" -> {
-                println("Write how many ml of water you want to add:")
-                val water = readln().toInt()
-                println("Write how many ml of milk you want to add:")
-                val milk = readln().toInt()
-                println("Write how many grams of coffee beans you want to add:")
-                val coffeeBeans = readln().toInt()
-                println("Write how many disposable coffee cups you want to add:")
-                val disposableCups = readln().toInt()
-                machine.fill(water, milk, coffeeBeans,disposableCups)
+                try {
+                    println("Write how many ml of water you want to add:")
+                    val water = readln().toInt()
+                    println("Write how many ml of milk you want to add:")
+                    val milk = readln().toInt()
+                    println("Write how many grams of coffee beans you want to add:")
+                    val coffeeBeans = readln().toInt()
+                    println("Write how many disposable coffee cups you want to add:")
+                    val disposableCups = readln().toInt()
+                    machine.fill(water, milk, coffeeBeans,disposableCups)
+                } catch (e: NumberFormatException){
+                    println("Invalid input! Please enter a number.")
+                }
             }
             "take" -> machine.take()
             "remaining" -> machine.remaining()
